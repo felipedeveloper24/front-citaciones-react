@@ -1,0 +1,31 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.main-container{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.content{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+}
+@media(max-width:974px){
+     .content{
+        width: 70%;
+     }
+}
+@media(max-width:650px){
+    .main-container{
+        flex-direction: column;
+        align-items: center;
+    }
+    .content{
+        margin-top: 30px;
+        border: 1px solid black;
+    }
+}
