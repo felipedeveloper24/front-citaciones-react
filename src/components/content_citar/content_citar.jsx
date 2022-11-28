@@ -4,16 +4,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Content_citar = ({id})=>{
     const BASE_API = "http://localhost:8000/api";
-
     const [trabajador, setTrabajador] = useState({});
     const [turnos, setTurnos] = useState([]);
     const [id_turno, setId] = useState(null);
     const [fecha, setFecha] = useState("")
     const [fecha_actuall,setFecha_actual] = useState("");
-    const [nombre_turno, setNombreTurno] = useState("");
     const navigate = useNavigate();
-    const Token = "EAAMcDWqtzsMBAC6dr8F9M3ZCsl2gePjxKUXGSjTZC2oYH9ZBuIxsecEJ0AZB9QUn8HZCufQ1n2yjnW7ZCX7Qvw3w7ZC4B448HHDrSsCGDMARavrKOWTfMewbymsketBaiR6ohJB41jwQzze3alxWFqAlVveJxZAZBz3DEsueWrADNrev45O7Ju44B";
-    const API_WTSP = `https://graph.facebook.com/v14.0/103545679233064/messages`;
+
     const formato = (texto)=>{
         return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
     }
@@ -33,87 +30,44 @@ const Content_citar = ({id})=>{
 
     const citar = async(e,id,rut,nombre,apellido, correo, telefono)=>{
         e.preventDefault();
-        let confirmar = confirm("¿Estás seguro de los datos?");
+        const turnos = [
+            {
+                id:1,
+                turno:"Mañana"
+            },
+            {
+                id:2,
+                turno:"Tarde"
+            },
+            {
+                id:3,
+                turno:"Noche"
+            }
+        ]
+            let names_turno = turnos.filter((item)=> item.id==id_turno );
 
-        if(confirmar){
-            //getNameTurno(id);
-            const data = {
+            const data_general = {
+                id_trabajador: id,
                 rut: rut,
                 nombre:nombre,
                 apellido:apellido,
                 correo:correo,
                 telefono: telefono,
-                id_estado: 1
-            }
-           
-            //DEJAMOS ACTIVA LA AUTORIZACION POR TOKEN
-            const config = {
-                headers:{
-                "Authorization": `Bearer ${Token}`
-                }
-            }
-            
-            getNameTurno(id_turno);
-            //DATA PARA CONECTARSE A API DE WTSP
-            const body = {
-                messaging_product: "whatsapp",
-                to: "56"+telefono,
-                type: "template",
-                template: {
-                    name: "citacion_nombre_turno",
-                    language: {
-                        code: "es_AR"
-                    },
-                    components:[
-                        {
-                            type: "body",
-                            parameters:[
-                                {
-                                    type: "text",
-                                    text: `${nombre} ${apellido}`
-                                }
-                                ,
-                                {
-                                    type: "text",
-                                    text: `${nombre_turno}`
-                                },
-                                {
-                                    type: "text",
-                                    text: `${formato(fecha)}`
-                                }
-                                
-                                
-                            ]
-                        }
-                ]
-                }
-            }
-            //Se envía petición a la api de wtsp
-            const response = await axios.post(API_WTSP,body,config)
-            
-            console.log(response);
-            //Se actualiza el estado del trabajador
-            
-            await axios.put(`${BASE_API}/trabajador/${id}`,data);
-            
-            const data2 = {
-                id_trabajador: id,
+                id_estado: 1,
+                turno: names_turno[0].turno,
+                id_turno: id_turno,
+                fecha: formato(fecha),
                 fecha_citacion: fecha,
-                id_turno: id_turno
             }
-
-            //Hace una petición para registrar la citación del trabajador
-             await axios.post(`${BASE_API}/citacion`, data2)
-
+            //Enviamos toda la data al backend de laravel
+            const response = await axios.post(`${BASE_API}/mensaje`,data_general);
+            console.log(response.data);
+            //console.log(response.data[0].messages[0].id);
             navigate("/citaciones");
-        }
-
     }
-
     //Petición para obtener la data de un trabajador en específico
     const getDataTrabajador = async()=>{
         const response = await axios.get(`${BASE_API}/trabajador/${id}`);
-   
         setTrabajador(response.data)
     };
 
@@ -123,13 +77,6 @@ const Content_citar = ({id})=>{
         const response2 = await axios.get("http://localhost:8000/api/turnos");
         setTurnos(response2.data)
     }
-
-    const getNameTurno = async (id) =>{
-         const response = await axios.get(`http://localhost:8000/api/turno/${id}`);
-          const turno = response.data.nombre_turno
-          setNombreTurno(turno);
-    }
-
     return(
         <div>
             <h2>Trabajador seleccionado: {trabajador.nombre} {trabajador.apellido} </h2>
