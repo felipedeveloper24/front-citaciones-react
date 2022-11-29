@@ -12,7 +12,7 @@ const ShowCitaciones = ({id})=>{
     },[]);  
     
     const getData = async ()=>{
-        const response = await axios.get(`${BASE_API}/citaciones/${id}`);    
+        const response = await axios.get(`${BASE_API}/mensajes/${id}`);    
         setCitaciones(response.data);
        // console.log(response.data);
     }
@@ -29,9 +29,10 @@ const ShowCitaciones = ({id})=>{
             <table className="w-75 table table-hover">
             <thead>
                 <tr>
-                   
-                    <th>Turno</th>
                     <th>Fecha citacion</th>
+                    <th>Turno</th>
+                    <th>Respuesta</th>
+                    <th>Hora envío mensaje</th>
                 </tr>
             </thead>
             <tbody>
@@ -39,8 +40,11 @@ const ShowCitaciones = ({id})=>{
                     citaciones.map((citacion,index)=>{
                         return(
                             <tr key={index}>
-                                <td>{citacion.nombre_turno}</td>
-                                <td>{ formato(citacion.fecha_citacion) }</td>
+                                <td>{formato(citacion.fecha_citacion)}</td>
+                                <td>{citacion.turno}</td>
+                               <td>{citacion.respuesta}</td>
+                                
+                                <td>{citacion.created_at}</td>
                                 
                             </tr>
                         )
