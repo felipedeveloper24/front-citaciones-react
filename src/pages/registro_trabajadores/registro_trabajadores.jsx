@@ -8,7 +8,7 @@ import {useForm} from "react-hook-form";
 import { Alert } from "@mui/material";
 
 const Registro = ()=>{
-    const BASE_API = "http://localhost:8000/api";
+    const BASE_API = "https://intra-atrasos.cl/api";
  
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
@@ -30,10 +30,7 @@ const Registro = ()=>{
            
             navigate("/admin");
         }
-        
-        
     };
-    
 
     return(
         <div className="main-container">

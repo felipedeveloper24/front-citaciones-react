@@ -4,7 +4,7 @@ import "./content.styles.css";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 const ContentCitaciones = ()=>{
-    const BASE_API = "http://localhost:8000/api";
+    const BASE_API = "https://intra-atrasos.cl/api";
     
     const [trabajadores,setTrabajadores] = useState([]);
     useEffect(()=>{

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Form_modificar = ({id})=>{
     
-    const BASE_API = "http://localhost:8000/api";
+    const BASE_API = "https://intra-atrasos.cl/api";
     
     const [rut,setRut] = useState({rut: ""});
     const [nombre,setNombre] = useState({nombre:"" });

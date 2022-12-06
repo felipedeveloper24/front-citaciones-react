@@ -3,7 +3,7 @@ import "./content_citar.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const Content_citar = ({id})=>{
-    const BASE_API = "http://localhost:8000/api";
+    const BASE_API = "https://intra-atrasos.cl/api";
     const [trabajador, setTrabajador] = useState({});
     const [turnos, setTurnos] = useState([]);
     const [id_turno, setId] = useState(null);
@@ -74,7 +74,7 @@ const Content_citar = ({id})=>{
     //Petición para obtener todos los turnos
 
     const getTurnos = async ()=>{
-        const response2 = await axios.get("http://localhost:8000/api/turnos");
+        const response2 = await axios.get("https://intra-atrasos.cl/api/turnos");
         setTurnos(response2.data)
     }
     return(

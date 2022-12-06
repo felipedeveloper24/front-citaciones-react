@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const ShowCitaciones = ({id})=>{
-    const BASE_API="http://localhost:8000/api";
+    const BASE_API="https://intra-atrasos.cl/api";
     const [citaciones,setCitaciones] = useState([]);
     const [trabajador,setTrabajador] = useState({});
     console.log(id);
@@ -33,6 +33,7 @@ const ShowCitaciones = ({id})=>{
                     <th>Turno</th>
                     <th>Respuesta</th>
                     <th>Hora envío mensaje</th>
+                    <th>Hora respuesta</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,9 +44,10 @@ const ShowCitaciones = ({id})=>{
                                 <td>{formato(citacion.fecha_citacion)}</td>
                                 <td>{citacion.turno}</td>
                                <td>{citacion.respuesta}</td>
-                                
                                 <td>{citacion.created_at}</td>
-                                
+                                {
+                                    citacion.respuesta ==="Sin respuesta" ? <td></td> : <td>{citacion.updated_at}</td>
+                                }
                             </tr>
                         )
                     })

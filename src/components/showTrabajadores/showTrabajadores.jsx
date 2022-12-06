@@ -6,8 +6,8 @@ import "./styles.css";
 import { useNavigate } from "react-router-dom";
 const ShowTrabajadores = ()=>{
     const [trabajadores,setTrabajadores] = useState([]);
-    const url = "http://localhost:8000/api/trabajadores";
-    const BASE_API = "http://localhost:8000/api/trabajador";
+    const url = "https://intra-atrasos.cl/api/trabajadores";
+    const BASE_API = "https://intra-atrasos.cl/api/trabajador";
     const [loading,setLoading] = useState(false);
     const navigate = useNavigate();
     useEffect(()=>{
@@ -20,11 +20,11 @@ const ShowTrabajadores = ()=>{
         setLoading(true);
     };
     const deleteTrabajador = async (id)=>{
-        
         let respuesta = confirm("¿Desea eliminar este usuario?");
        // console.log(respuesta);
         if(respuesta){
-            await axios.delete(`${BASE_API}/${id}`);
+           const response = await axios.delete(`${BASE_API}/${id}`);
+           console.log(response.data);
             getAllTrabajadores();    
         }
        
