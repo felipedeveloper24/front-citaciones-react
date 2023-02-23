@@ -10,7 +10,6 @@ const Modificar = ()=>{
     return(
         <div className="main-container">
             <Header/>
-            <Sidebar/>
             <Form_modificar id={id} />
         </div>
     )

@@ -7,7 +7,7 @@ const Admin = ()=>{
     return(
         <div className="main-container">
             <Header/>
-            <Sidebar/>
+                
             <Content/>
         </div>
     )

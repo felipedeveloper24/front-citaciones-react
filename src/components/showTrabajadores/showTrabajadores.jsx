@@ -4,21 +4,21 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { CircularProgress, Grid } from "@mui/material";
 const ShowTrabajadores = ()=>{
-    const [trabajadores,setTrabajadores] = useState([]);
     const url = "https://intra-atrasos.cl/api/trabajadores";
-    const BASE_API = "https://intra-atrasos.cl/api/trabajador";
-    const [loading,setLoading] = useState(false);
-    const navigate = useNavigate();
-    useEffect(()=>{
-        getAllTrabajadores();
-    },[])
 
-    const getAllTrabajadores = async()=>{
+    const {status,data,error} = useQuery("getTrabajadores", async()=>{
         const response = await axios.get(url);
-        setTrabajadores(response.data);
-        setLoading(true);
-    };
+        console.log(response.data);
+        return response.data;
+    })
+
+    const BASE_API = "https://intra-atrasos.cl/api/trabajador";
+
+    const navigate = useNavigate();
+    
     const deleteTrabajador = async (id)=>{
         let respuesta = confirm("¿Desea eliminar este usuario?");
        // console.log(respuesta);
@@ -29,9 +29,10 @@ const ShowTrabajadores = ()=>{
         }
        
     }
-    if(loading){
+
+    if(status==="success"){
         return (
-            <table className="table table-hover">
+            <table className="table table-hover text-center">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -45,7 +46,7 @@ const ShowTrabajadores = ()=>{
                 </thead>
                 <tbody>
                     {
-                        trabajadores.map((trabajador,index)=>{
+                        data.map((trabajador,index)=>{
                             return(
                                 <tr key={index}>
                                 <td>{trabajador.id}</td>
@@ -67,12 +68,30 @@ const ShowTrabajadores = ()=>{
                 </tbody>
             </table>
         );
-    
-    }else{
-        <div>
-            Cargando data
-        </div>
     }
+    if(status ==="error"){
+        return (
+            <div>
+                Error al cargar la información
+            </div>
+        )
+    }
+    if(status==="loading"){
+        return (
+            <Grid sx={{
+                width:"80%",
+                display:"flex",
+                flexDirection:"column",
+                justifyContent:"center",
+                alignItems:"center"
+            }}>
+                Cargando datos.....
+                <CircularProgress/>
+
+            </Grid>
+        )
+    }
+    
     
     
 };

@@ -35,7 +35,6 @@ const Registro = ()=>{
     return(
         <div className="main-container">
             <Header/>
-            <Sidebar/>
             <div className="w-75 mt-5">
                 <form className="row form p-3 w-75 m-auto border d-flex" method="POST" onSubmit={handleSubmit(store)} >
                     <h1 className="h1">Registro de trabajador</h1>

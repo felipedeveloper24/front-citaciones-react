@@ -7,7 +7,6 @@ const Home = ()=>{
     return(
         <div className="main-container">
             <Header/>
-            <Sidebar/>
             <div className="content">
                 <img src={logo} alt="" width="220px" />
             </div>

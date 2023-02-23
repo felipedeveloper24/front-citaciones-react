@@ -10,7 +10,6 @@ const Historial = ()=>{
     return(
         <div className="main-container">
             <Header/>
-            <Sidebar/>
             <Content_historial/>
         </div>
     )

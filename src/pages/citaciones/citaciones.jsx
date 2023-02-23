@@ -7,7 +7,6 @@ const Citaciones = ()=>{
     return(
         <div className="main-container">
             <Header/>
-            <Sidebar/>
             <ContentCitaciones/>
         </div>
     )

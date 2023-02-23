@@ -9,7 +9,6 @@ const Citar = ()=>{
     return(
         <div className="main-container">
             <Header/>
-            <Sidebar/>
             <Content_citar id={parametros.id} />
         </div>
     )
