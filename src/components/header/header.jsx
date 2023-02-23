@@ -5,9 +5,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import React from "react";
 import "./header.styles.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = ()=>{
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
     const handleToggleMenu = () => {
         setOpen(!open);
       };
@@ -29,14 +31,14 @@ const Header = ()=>{
                         <MenuIcon  style={{color:"white"}} />
                     </IconButton>
                     </ListItem>
-                    <ListItem button onClick={handleToggleMenu}>
-                        <ListItemText sx={{textAlign:"center"}} primary="Home" />
+                    <ListItem button onClick={()=>navigate("/")}>
+                        <ListItemText sx={{textAlign:"center"}} primary="Inicio" />
                     </ListItem>
-                    <ListItem button onClick={handleToggleMenu}>
-                        <ListItemText sx={{textAlign:"center"}} primary="About" />
+                    <ListItem button onClick={()=>navigate("/admin")}>
+                        <ListItemText sx={{textAlign:"center"}} primary="Administración" />
                     </ListItem>
-                    <ListItem button onClick={handleToggleMenu}>
-                        <ListItemText sx={{textAlign:"center"}} primary="Contact" />
+                    <ListItem button onClick={()=>navigate("/citaciones")}>
+                        <ListItemText sx={{textAlign:"center"}} primary="Citaciones" />
                     </ListItem>
                 </List>
             </Drawer>
