@@ -1,6 +1,13 @@
+import { Grid, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Table from "@mui/material/Table";
+import Paper from '@mui/material/Paper';
 const ShowCitaciones = ({id})=>{
     const BASE_API="https://intra-atrasos.cl/api";
     const [citaciones,setCitaciones] = useState([]);
@@ -24,37 +31,42 @@ const ShowCitaciones = ({id})=>{
             return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3/$2/$1');
     }
     return(
-        <div>
-            <h1>Historial de citaciones, Trabajador: {trabajador.nombre} {trabajador.apellido} </h1>
-            <table className="w-75 table table-hover">
-            <thead>
-                <tr>
-                    <th>Fecha citacion</th>
-                    <th>Turno</th>
-                    <th>Respuesta</th>
-                    <th>Hora envío mensaje</th>
-                    <th>Hora respuesta</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    citaciones.map((citacion,index)=>{
-                        return(
-                            <tr key={index}>
-                                <td>{formato(citacion.fecha_citacion)}</td>
-                                <td>{citacion.turno}</td>
-                               <td>{citacion.respuesta}</td>
-                                <td>{citacion.created_at}</td>
-                                {
-                                    citacion.respuesta ==="Sin respuesta" ? <td></td> : <td>{citacion.updated_at}</td>
-                                }
-                            </tr>
-                        )
-                    })
-                }
-            </tbody>
-        </table>
-        </div>
+        
+        <Grid container sx={{width:"75%",margin:"0px auto",marginTop:"10px",display:"flex"}}>
+            <Grid sx={{width:"75%",margin:"0px auto",marginTop:"15px"}}>
+                <Typography sx={{textAlign:"center"}}  variant="h5">Historial de citaciones, Trabajador: {trabajador.nombre} {trabajador.apellido} </Typography>
+            </Grid>
+            <TableContainer component={Paper} sx={{marginTop:"10px"}}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Fecha citación</TableCell>
+                        <TableCell >Turno</TableCell>
+                        <TableCell>Respuesta</TableCell>
+                        <TableCell >Hora envío mensaje</TableCell>
+                        <TableCell>Hora respuesta</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>{
+                citaciones.map((citacion,index)=>{
+                    return(
+                        <TableRow key={index}>
+                            <TableCell>{formato(citacion.fecha_citacion)}</TableCell>
+                            <TableCell>{citacion.turno}</TableCell>
+                            <TableCell>{citacion.respuesta}</TableCell>
+                            <TableCell>{citacion.created_at}</TableCell>
+                            {
+                                citacion.respuesta ==="Sin respuesta" ? <TableCell>-------</TableCell> : <TableCell>{citacion.updated_at}</TableCell>
+                            }
+                        </TableRow>
+                    )
+                })
+            }
+                </TableBody>
+            </Table>
+            </TableContainer>
+
+        </Grid>
         
     )
 }
