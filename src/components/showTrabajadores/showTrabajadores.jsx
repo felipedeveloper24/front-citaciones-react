@@ -6,6 +6,13 @@ import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { CircularProgress, Grid } from "@mui/material";
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Table from "@mui/material/Table";
+import Paper from '@mui/material/Paper';
 import Swal from "sweetalert2";
 const ShowTrabajadores = ()=>{
     const url = "https://intra-atrasos.cl/api/trabajadores";
@@ -65,41 +72,39 @@ const ShowTrabajadores = ()=>{
 
     if(status==="success"){
         return (
-            <table className="table table-hover text-center">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Rut</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Correo</th>
-                        <th>Teléfono</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell >Nombre</TableCell>
+                    <TableCell >Apellido</TableCell>
+                    <TableCell>Correo</TableCell>
+                    <TableCell>Teléfono</TableCell>
+                    <TableCell>Acciones</TableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
                     {
-                        data.map((trabajador,index)=>{
-                            return(
-                                <tr key={index}>
-                                <td>{trabajador.id}</td>
-                                <td>{trabajador.rut}</td>
-                                <td>{trabajador.nombre}</td>
-                                <td>{trabajador.apellido}</td>
-                                <td>{trabajador.correo}</td>
-                                <td>{trabajador.telefono}</td>
-                                <td>
+                      data.map((trabajador,idx)=>{
+                         return(
+                            <TableRow key={idx}>
+                                <TableCell>{trabajador.id}</TableCell>
+                                <TableCell>{trabajador.nombre}</TableCell>
+                                <TableCell>{trabajador.apellido}</TableCell>
+                                <TableCell>{trabajador.correo}</TableCell>
+                                <TableCell>{trabajador.telefono}</TableCell>
+                                <TableCell>
                                     <EditIcon className="iconn" onClick={()=> navigate(`/modificar/${trabajador.id}`) } />
                                     <DeleteIcon className="iconn" onClick={()=> deleteTrabajador(trabajador.id) } />
-                                </td>
-                            </tr>
-                            )
-                           
-                        })
+                                </TableCell>
+                           </TableRow>
+                         )
+                      })
                     }
-                  
-                </tbody>
-            </table>
+                </TableBody>
+            </Table>
+            </TableContainer>
         );
     }
     if(status ==="error"){

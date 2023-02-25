@@ -7,7 +7,7 @@ const Content = ()=>{
     return(
             <Grid container sx={{width:"100%",display:"flex"}}>
                 <Grid className="box">
-                    <h1 className="">Listado de Trabajadores registrados</h1>
+                    <h1 className="h1">Listado de Trabajadores</h1>
                     <Link to="/registro" className="btn btn-primary linkk">Añadir Trabajador</Link>
                 </Grid>
 
