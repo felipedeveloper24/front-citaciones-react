@@ -21,7 +21,7 @@ const Header = ()=>{
                 </IconButton>   
              </Grid>
              <Grid sx={{width:"70%",display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <Typography sx={{fontSize:"30px",color:"white"}}>Sistema de Nombradas</Typography>
+                <Typography className="titulo" sx={{fontSize:{md:"40px",xl:"35px"},color:"white"}}>Sistema de Nombradas</Typography>
                 <Anchor style={{color:"white",marginLeft:"10px"}}  />
             </Grid>
             <Drawer anchor="left" open={open}  width={300} onClose={handleToggleMenu}>

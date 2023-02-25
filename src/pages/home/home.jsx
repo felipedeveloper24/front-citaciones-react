@@ -1,16 +1,18 @@
 import React from "react";
 import Header from "../../components/header/header";
 import Sidebar from "../../components/sidebar/sidebar";
-import "./home.styles.css";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/intra.jpg";
+import { Grid } from "@mui/material";
 const Home = ()=>{
     return(
-        <div className="main-container">
+        <Grid container sx={{width:"100%",display:"flex",flexDirection:"column",height:"100vh"}}>
             <Header/>
-            <div className="content">
-                <img src={logo} alt="" width="220px" />
-            </div>
-        </div>
+            <Grid sx={{width:"75%",display:"flex",justifyContent:"center",margin:"0px auto",marginTop:"100px",alignItems:"center"}}>
+                <img src={logo} style={{width:"70%"}} />
+            </Grid>
+        
+        </Grid>
+        
     );
 };
 

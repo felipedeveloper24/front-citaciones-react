@@ -6,6 +6,7 @@ import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { CircularProgress, Grid } from "@mui/material";
+import Swal from "sweetalert2";
 const ShowTrabajadores = ()=>{
     const url = "https://intra-atrasos.cl/api/trabajadores";
 
@@ -19,14 +20,46 @@ const ShowTrabajadores = ()=>{
 
     const navigate = useNavigate();
     
-    const deleteTrabajador = async (id)=>{
-        let respuesta = confirm("¿Desea eliminar este usuario?");
+    const deleteTrabajador =  (id)=>{
+       // let respuesta = confirm("¿Desea eliminar este usuario?");
        // console.log(respuesta);
-        if(respuesta){
-           const response = await axios.delete(`${BASE_API}/${id}`);
-           console.log(response.data);
-            getAllTrabajadores();    
+       Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¡No podrás revertir esto!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, bórralo!',
+      }).then(async(result)  =>  {
+        if (result.isConfirmed) {
+          // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
+
+          const response = await axios.delete(`${BASE_API}/${id}`);
+          if(response.status===200){
+         
+                Swal.fire({
+                    title:"Eliminado",
+                    text:"El trabajador ha sido eliminado correctamente",
+                    icon:"success",
+                    confirmButtonText:"Aceptar"
+                })
+                setTimeout(()=>{
+                    navigate("/admin");
+                    window.location.reload();
+                },2000)
+          }else{
+            Swal.fire({
+                title:"Error",
+                text:"Ha ocurrido un error al eliminar el trabajador",
+                icon:"error",
+                confirmButtonText:"Aceptar"
+            })
+          }
+           
         }
+      });
+        
        
     }
 
