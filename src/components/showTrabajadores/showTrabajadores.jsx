@@ -5,7 +5,7 @@ import axios from "axios";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { CircularProgress, Grid } from "@mui/material";
+import { CircularProgress, Grid, Tooltip } from "@mui/material";
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -41,6 +41,7 @@ const ShowTrabajadores = ()=>{
       }).then(async(result)  =>  {
         if (result.isConfirmed) {
           // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
+
           const response = await axios.delete(`${BASE_API}/${id}`);
           if(response.status===200){
          
@@ -51,7 +52,7 @@ const ShowTrabajadores = ()=>{
                     confirmButtonText:"Aceptar"
                 })
                 setTimeout(()=>{
-                    navigate("https://front-citaciones-react.vercel.app/admin");
+                    navigate("/admin");
                     window.location.reload();
                 },2000)
           }else{
@@ -94,8 +95,12 @@ const ShowTrabajadores = ()=>{
                                 <TableCell>{trabajador.correo}</TableCell>
                                 <TableCell>{trabajador.telefono}</TableCell>
                                 <TableCell>
-                                    <EditIcon className="iconn" onClick={()=> navigate(`/modificar/${trabajador.id}`) } />
-                                    <DeleteIcon className="iconn" onClick={()=> deleteTrabajador(trabajador.id) } />
+                                    <Tooltip title="Modificar trabajador" >
+                                        <EditIcon className="iconn" onClick={()=> navigate(`/modificar/${trabajador.id}`) } />
+                                    </Tooltip>
+                                    <Tooltip title="Eliminar trabajador">
+                                        <DeleteIcon className="iconn" onClick={()=> deleteTrabajador(trabajador.id) } />
+                                    </Tooltip>
                                 </TableCell>
                            </TableRow>
                          )
