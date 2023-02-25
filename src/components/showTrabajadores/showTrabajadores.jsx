@@ -41,7 +41,6 @@ const ShowTrabajadores = ()=>{
       }).then(async(result)  =>  {
         if (result.isConfirmed) {
           // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
-
           const response = await axios.delete(`${BASE_API}/${id}`);
           if(response.status===200){
          
@@ -52,7 +51,7 @@ const ShowTrabajadores = ()=>{
                     confirmButtonText:"Aceptar"
                 })
                 setTimeout(()=>{
-                    navigate("/admin");
+                    navigate("https://front-citaciones-react.vercel.app/admin");
                     window.location.reload();
                 },2000)
           }else{
