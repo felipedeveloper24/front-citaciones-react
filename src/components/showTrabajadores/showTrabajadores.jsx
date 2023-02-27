@@ -73,7 +73,7 @@ const ShowTrabajadores = ()=>{
     if(status==="success"){
         return (
             <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table stickyHeader sx={{ minWidth: 650,maxHeight:300 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
                     <TableCell>ID</TableCell>

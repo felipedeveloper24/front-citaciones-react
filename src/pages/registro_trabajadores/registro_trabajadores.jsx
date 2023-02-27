@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./registro.styles.css";
 import Header from "../../components/header/header";
 import Sidebar from "../../components/sidebar/sidebar";
+import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {useForm} from "react-hook-form";
@@ -14,12 +15,18 @@ const Registro = ()=>{
     const navigate = useNavigate();
 
     const onSubmit = async(data) =>{
-        console.log(data);
-        
-        let respuesta = confirm("¿Estás seguro/a de todos los datos?")
-        
-        if(respuesta){
-            const response = await axios.post(`${BASE_API}/trabajador`,{
+        Swal.fire({
+            title: '¿Estás seguro de los datos?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText:"Cancelar"
+          }).then(async(result)  =>  {
+            if (result.isConfirmed) {
+              // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
+              const response = await axios.post(`${BASE_API}/trabajador`,{
                 rut: data.rut,
                 nombre:data.nombre,
                 apellido:data.apellido,
@@ -27,11 +34,33 @@ const Registro = ()=>{
                 telefono: data.telefono,
                 id_estado: 2
             })
-            console.log(response.data);
-           
-            navigate("/admin");
-        }
+             console.log(response);
+              if(response.status===201){
+             
+                    Swal.fire({
+                        title:"Registrado",
+                        text:"El trabajador ha sido registrado correctamente",
+                        icon:"success",
+                        confirmButtonText:"Aceptar"
+                    })
+                    setTimeout(()=>{
+                        navigate("/admin");
+                        window.location.reload();
+                    },2000)
+              }else{
+                Swal.fire({
+                    title:"Error",
+                    text:"Ha ocurrido un error al registrar trabajador",
+                    icon:"error",
+                    confirmButtonText:"Aceptar"
+                })
+              }
+               
+            }
+          });
         
+       
+    
     };
 
     return(
@@ -50,8 +79,11 @@ const Registro = ()=>{
                 alignItems:"center",
                 marginTop:"15px"
             }}>
-                <Typography    xs={{ variant: 'h5', component: 'h5' }}
-                sm={{ variant: 'h3', component: 'h3' }} md={{variant:"h1",component:'h1'}} lg={{variant:"h1",component:'h1'}} xl={{variant:"h1",component:'h1'}} >Registro de trabajador</Typography>
+                <Typography sx={{
+                    fontSize:{
+                        xs: '1rem', sm: '2rem' 
+                    }
+                }} >Registro de trabajador</Typography>
                 <Card sx={{
                         width:"100%",
                         minHeight:"400px",

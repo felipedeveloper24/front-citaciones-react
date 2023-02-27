@@ -22,7 +22,18 @@ const ContentCitaciones = ()=>{
     })
     if(status==="loading"){
         return (
-            <CircularProgress/>
+            <Grid sx={{
+                width:"80%",
+                display:"flex",
+                flexDirection:"column",
+                justifyContent:"center",
+                alignItems:"center"
+            }}>
+                Cargando datos.....
+                <CircularProgress/>
+
+            </Grid>
+            
         )
         
     }
