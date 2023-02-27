@@ -32,7 +32,7 @@ const ShowCitaciones = ({id})=>{
     }
     return(
         
-        <Grid container sx={{width:"75%",margin:"0px auto",marginTop:"10px",display:"flex"}}>
+        <Grid container sx={{width:"90%",margin:"0px auto",marginTop:"10px",display:"flex"}}>
             <Grid sx={{width:"75%",margin:"0px auto",marginTop:"15px"}}>
                 <Typography sx={{textAlign:"center"}}  variant="h5">Historial de citaciones, Trabajador: {trabajador.nombre} {trabajador.apellido} </Typography>
             </Grid>

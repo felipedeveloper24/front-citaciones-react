@@ -28,7 +28,7 @@ const ContentCitaciones = ()=>{
     }
     if(status==="success"){
         return (
-            <Grid sx={{width:"75%",margin:"0px auto",marginTop:"15px"}}>
+            <Grid sx={{width:"90%",margin:"0px auto",marginTop:"15px"}}>
                 <Typography variant="h5"sx={{textAlign:"center",padding:"15px"}}>Listado de trabajadores a citar</Typography>
                 <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">

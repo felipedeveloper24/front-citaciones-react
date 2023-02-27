@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 const Content = ()=>{
     return(
-            <Grid container sx={{width:"75%",margin:"0px auto",display:"flex"}}>
+            <Grid container sx={{width:"90%",margin:"0px auto",display:"flex"}}>
                 <Grid className="box">
                     <h1 className="h1">Listado de Trabajadores</h1>
                     <Link to="/registro" className="btn btn-primary linkk">Añadir Trabajador</Link>
