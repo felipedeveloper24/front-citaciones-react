@@ -14,6 +14,7 @@ import TableRow from '@mui/material/TableRow';
 import Table from "@mui/material/Table";
 import Paper from '@mui/material/Paper';
 import Swal from "sweetalert2";
+import { Work } from "@mui/icons-material";
 const ShowTrabajadores = ()=>{
     const url = "https://intra-atrasos.cl/api/trabajadores";
 
@@ -24,7 +25,6 @@ const ShowTrabajadores = ()=>{
     })
 
     const BASE_API = "https://intra-atrasos.cl/api/trabajador";
-
     const navigate = useNavigate();
     
     const deleteTrabajador =  (id)=>{
@@ -38,6 +38,7 @@ const ShowTrabajadores = ()=>{
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Sí, bórralo!',
+        cancelButtonText:"Cancelar"
       }).then(async(result)  =>  {
         if (result.isConfirmed) {
           // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
@@ -76,6 +77,7 @@ const ShowTrabajadores = ()=>{
             <Table stickyHeader sx={{ minWidth: 650,maxHeight:300 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
+                    
                     <TableCell>ID</TableCell>
                     <TableCell >Nombre</TableCell>
                     <TableCell >Apellido</TableCell>
@@ -96,7 +98,7 @@ const ShowTrabajadores = ()=>{
                                 <TableCell>{trabajador.telefono}</TableCell>
                                 <TableCell>
                                     <Tooltip title="Modificar trabajador" >
-                                        <EditIcon className="iconn" onClick={()=> navigate(`/modificar/${trabajador.id}`) } />
+                                        <EditIcon className="iconn" onClick={()=> { navigate(`/modificar/${trabajador.id}`) }} />
                                     </Tooltip>
                                     <Tooltip title="Eliminar trabajador">
                                         <DeleteIcon className="iconn" onClick={()=> deleteTrabajador(trabajador.id) } />

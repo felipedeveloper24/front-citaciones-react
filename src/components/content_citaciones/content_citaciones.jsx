@@ -11,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Table from "@mui/material/Table";
 import Paper from '@mui/material/Paper';
+import { History, Work } from "@mui/icons-material";
 
 const ContentCitaciones = ()=>{
     const BASE_API = "https://intra-atrasos.cl/api";
@@ -65,10 +66,10 @@ const ContentCitaciones = ()=>{
                                     <TableCell>{trabajador.telefono}</TableCell>
                                     <TableCell>
                                         <Tooltip title="Citar trabajador">
-                                            <Link className="btn btn-primary" to={`/citar/${trabajador.id}`}>Citar</Link>  
+                                            <Link  to={`/citar/${trabajador.id}`}><Work/></Link>  
                                         </Tooltip>
                                         <Tooltip title="Historial de citaciones">
-                                            <Link to={`/historial/${trabajador.id}`}  className="ms-1 btn btn-success">Ver Historial</Link>
+                                            <Link to={`/historial/${trabajador.id}`} ><History/></Link>
                                         </Tooltip>
                                     </TableCell>
                             </TableRow>
