@@ -7,13 +7,19 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {useForm} from "react-hook-form";
 import { Alert, Box, Button, Card, Grid, TextField, Typography } from "@mui/material";
-
+import { useRut } from "react-rut-formatter";
 const Registro = ()=>{
     const BASE_API = "https://intra-atrasos.cl/api";
- 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    
+    const { register, handleSubmit, formState: { errors } } = useForm({defaultValues:{
+        rut:"",
+        nombre:"",
+        apellido:"",
+        correo:"",
+        telefono:""
+    }});
     const navigate = useNavigate();
-
+    const { rut, updateRut, isValid } = useRut();
     const onSubmit = async(data) =>{
         Swal.fire({
             title: '¿Estás seguro de los datos?',
@@ -27,7 +33,7 @@ const Registro = ()=>{
             if (result.isConfirmed) {
               // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
               const response = await axios.post(`${BASE_API}/trabajador`,{
-                rut: data.rut,
+                rut: rut.formatted,
                 nombre:data.nombre,
                 apellido:data.apellido,
                 correo:data.correo,
@@ -90,10 +96,9 @@ const Registro = ()=>{
                 <form onSubmit={handleSubmit(onSubmit)} style={{width:"100%",margin:"0px auto",marginLeft:"10px",display:"flex",marginTop:"10px",alignItems:"center",flexWrap:"wrap"}} method="POST" >
                     <Grid container spacing={2}>
                         <Grid item xs={11} xl={6} lg={6} md={6} sm={10}>
-                            <TextField label="Rut" {...register("rut",{
-                                required:"true"
-                            })} fullWidth/>
-                             {errors.rut && <Alert className="mt-2" severity="error">Este campo es requerido</Alert> }
+                            <TextField label="Rut" name="rut" value={rut.formatted} onChange={(e) => updateRut(e.target.value)}  fullWidth/>
+                             {rut.formatted.length>0 && !isValid && <Alert className="mt-2" severity="error">Rut inválido</Alert> }
+                             {isValid && <Alert className="mt-2" severity="success">Rut válido</Alert> }
                         </Grid>
                         <Grid item xs={11} xl={6} lg={6} md={6} sm={10}>
                             <TextField  label="Nombre" fullWidth {...register("nombre",{
@@ -117,8 +122,12 @@ const Registro = ()=>{
                         </Grid>
                         <Grid item xs={11} xl={6} lg={6} md={6} sm={10}>
                             <TextField  label="Teléfono"  {...register("telefono",{
-                                required:true
-                            })} fullWidth/>
+                                required:true,
+                                maxLength:9,
+                                pattern: "[0-9]*"
+                            })}  fullWidth/>
+
+                        
                             {errors.telefono && <Alert className="mt-2" severity="error">Este campo es requerido</Alert>}
                         </Grid>
                         

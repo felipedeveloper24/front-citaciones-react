@@ -78,7 +78,8 @@ const ShowTrabajadores = ()=>{
                 <TableHead>
                 <TableRow>
                     
-                    <TableCell>ID</TableCell>
+                   
+                    <TableCell>Rut</TableCell>
                     <TableCell >Nombre</TableCell>
                     <TableCell >Apellido</TableCell>
                     <TableCell>Correo</TableCell>
@@ -91,7 +92,7 @@ const ShowTrabajadores = ()=>{
                       data.map((trabajador,idx)=>{
                          return(
                             <TableRow key={idx}>
-                                <TableCell>{trabajador.id}</TableCell>
+                                <TableCell>{trabajador.rut}</TableCell>
                                 <TableCell>{trabajador.nombre}</TableCell>
                                 <TableCell>{trabajador.apellido}</TableCell>
                                 <TableCell>{trabajador.correo}</TableCell>
