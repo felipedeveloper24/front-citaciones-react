@@ -51,7 +51,6 @@ const Registro = ()=>{
                     })
                     setTimeout(()=>{
                         navigate("/admin");
-                        window.location.reload();
                     },2000)
               }else{
                 Swal.fire({
@@ -123,12 +122,22 @@ const Registro = ()=>{
                         <Grid item xs={11} xl={6} lg={6} md={6} sm={10}>
                             <TextField  label="Teléfono"  {...register("telefono",{
                                 required:true,
-                                maxLength:9,
-                                pattern: "[0-9]*"
-                            })}  fullWidth/>
+                                maxLength:{
+                                    value:9,
+                                    message:"Ingrese el largo máximo de 9 números"
+                                },
+                                minLength:{
+                                    value:8,
+                                    message:"Ingrese al menos 8 números"
+                                },
+                                pattern: {
+                                    value: "/^[0-9\b]+$/",
+                                    message: "Ingrese solo números"
+                                }
+                            })}  inputProps={{inputMode:"numeric"}} helperText="Recuerde utilizar solo números " fullWidth/>
 
                         
-                            {errors.telefono && <Alert className="mt-2" severity="error">Este campo es requerido</Alert>}
+                            {errors.telefono && <Alert className="mt-2" severity="error">Ingrese los datos correctamente</Alert>}
                         </Grid>
                         
                         <Grid sx={{width:"70%",margin:"0px auto",marginTop:"15px",display:"flex",justifyContent:"center"}}>
