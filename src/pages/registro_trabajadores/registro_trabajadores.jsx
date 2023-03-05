@@ -120,7 +120,7 @@ const Registro = ()=>{
                              {errors.correo && <Alert className="mt-2" severity="error">Este campo es requerido</Alert>}
                         </Grid>
                         <Grid item xs={11} xl={6} lg={6} md={6} sm={10}>
-                            <TextField  label="Teléfono"  {...register("telefono",{
+                            <TextField placeholder="9xxxxxxxx" label="Teléfono"  {...register("telefono",{
                                 required:true,
                                 maxLength:{
                                     value:9,
@@ -134,7 +134,7 @@ const Registro = ()=>{
                                     value: "/^[0-9\b]+$/",
                                     message: "Ingrese solo números"
                                 }
-                            })}  inputProps={{inputMode:"numeric"}} helperText="Recuerde utilizar solo números " fullWidth/>
+                            })}  inputProps={{inputMode:"numeric"}} helperText="Recuerde utilizar el formato indicado" fullWidth/>
 
                         
                             {errors.telefono && <Alert className="mt-2" severity="error">Ingrese los datos correctamente</Alert>}

@@ -126,7 +126,7 @@ const ShowTrabajadores = ()=>{
                 </TableRow>
                 </TableHead>
             </Table>
-            <Alert severity="error"  sx={{textAlign:"center",margin:"0px auto",marginTop:"10px",marginBottom:"10px",width:"60%",textAlign:"center"}}>No hay trabajadores registrados</Alert>
+            <Alert severity="error"  sx={{margin:"0px auto",marginTop:"10px",marginBottom:"10px",width:"60%",textAlign:"center"}}>No hay trabajadores registrados</Alert>
             </TableContainer>
         );
     }
