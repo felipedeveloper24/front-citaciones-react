@@ -3,7 +3,7 @@ import "./content_citar.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Card, FormControl, Grid, InputLabel, MenuItem, Select, Typography, TextField, Button} from "@mui/material";
+import { Card, FormControl, Grid, InputLabel, MenuItem, Select, Typography, TextField, Button, Alert} from "@mui/material";
 import Swal from "sweetalert2";
 
 const Content_citar = ({id})=>{
@@ -102,15 +102,6 @@ const Content_citar = ({id})=>{
                
             }
           });
-
-   
-        /*
-            //Enviamos toda la data al backend de laravel
-          
-            console.log(response.data);
-            //console.log(response.data[0].messages[0].id);
-            navigate("/citaciones");
-            */
     }
     
     //Petición para obtener la data de un trabajador en específico
@@ -133,14 +124,14 @@ const Content_citar = ({id})=>{
                         xs: '1.2rem', sm: '2rem' 
                     },textAlign:"center",marginTop:"10px",marginBottom:"15px"
                 }} > Trabajador seleccionado: {trabajador.nombre} {trabajador.apellido}</Typography>
-            <Card sx={{width:"85%",margin:"0px auto",minHeight:"300px",
+            <Card sx={{width:"90",margin:"0px auto",minHeight:"300px",
                         padding:"15px"}}>
             <form  style={{margin:"0px auto",marginLeft:"10px",display:"flex",marginTop:"10px",alignItems:"center",flexWrap:"wrap"}} onSubmit ={handleSubmit(citar)} >
                 <Grid container spacing={2} sx={{display:"flex",justifyContent:"center"}}>
                     <Grid item xs={11} xl={10} lg={10} md={10} sm={10} sx={{marginBottom:"10px"}}>
                          <FormControl  fullWidth>
                              <InputLabel id="demo-simple-select-label">Turnos</InputLabel>
-                             <Select  labelId="demo-simple-select-label" {...register("turno")}  defaultValue={defaultOpcion}>
+                             <Select  labelId="demo-simple-select-label" {...register("turno",{required:true})}  defaultValue={defaultOpcion}>
                              <MenuItem value={defaultOpcion}>Selecciona una opción</MenuItem>
                                 {turnos.map((turno,index)=>{
                                     return(
@@ -149,12 +140,14 @@ const Content_citar = ({id})=>{
                                 })
                              }
                              </Select>
+                             {errors.turno && <Alert severity="error" sx={{marginTop:"10px"}}>Campo requerido</Alert> }
                          </FormControl>
                      </Grid>
                      <Grid item xs={11} xl={10} lg={10} md={10} sm={10} sx={{marginBottom:"20px"}}>
                            <TextField  helperText="Seleccione una fecha" type="date" 
-                           {...register("fecha")}
+                           {...register("fecha",{required:true})}
                            fullWidth/>
+                           {errors.fecha && <Alert severity="error" sx={{marginTop:"10px"}}>Campo requerido</Alert> }
                      </Grid>
                      <Grid sx={{width:"75%",margin:"0px auto",display:"flex",justifyContent:"center",alignItems:"center"}}>
                             <Button type="submit" variant="contained">Citar trabajador</Button>

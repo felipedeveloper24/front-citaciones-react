@@ -1,14 +1,19 @@
 import React from "react";
 import "./content_admin.styles.css";
 import ShowTrabajadores from "../showTrabajadores/showTrabajadores";
-import { Link } from "react-router-dom";
-import { Grid } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Grid, Typography } from "@mui/material";
 const Content = ()=>{
+    const navigate = useNavigate();
     return(
             <Grid container sx={{width:"90%",margin:"0px auto",display:"flex",marginBottom:"10px"}}>
                 <Grid className="box">
-                    <h1 className="h1">Listado de Trabajadores</h1>
-                    <Link to="/registro" className="btn btn-primary linkk">Añadir Trabajador</Link>
+                    <Typography sx={{fontSize:{
+                        xs: '1.3rem', sm: '2rem' 
+                    },marginRight:"10px",marginBottom:"7px"}} >Listado de trabajadores</Typography>
+                    <Button onClick={()=> navigate("/registro")} variant="contained">
+                        Añadir Trabajador
+                    </Button>
                 </Grid>
 
             <ShowTrabajadores/>

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import "./content.styles.css";
-import { Button, CircularProgress,Tooltip,Grid, Typography} from "@mui/material";
+import { Button, CircularProgress,Tooltip,Grid, Typography, Alert} from "@mui/material";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import TableBody from '@mui/material/TableBody';
@@ -38,7 +38,7 @@ const ContentCitaciones = ()=>{
         )
         
     }
-    if(status==="success"){
+    if(status==="success" && data.length > 0){
         return (
             <Grid sx={{width:"90%",margin:"0px auto",marginTop:"15px"}}>
                 <Typography variant="h5"sx={{textAlign:"center",padding:"15px"}}>Listado de trabajadores a citar</Typography>
@@ -78,6 +78,30 @@ const ContentCitaciones = ()=>{
                         }
                     </TableBody>
                 </Table>
+                </TableContainer>
+            </Grid>
+        );
+    }
+    if(status==="success" && data.length == 0){
+        return (
+            <Grid sx={{width:"90%",margin:"0px auto",marginTop:"15px"}}>
+                <Typography variant="h5"sx={{textAlign:"center",padding:"15px"}}>Listado de trabajadores a citar</Typography>
+                <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                    <TableRow>
+                        <TableCell>ID</TableCell>
+                        <TableCell >Nombre</TableCell>
+                        <TableCell >Apellido</TableCell>
+                        <TableCell>Correo</TableCell>
+                        <TableCell>Teléfono</TableCell>
+                        <TableCell>Acciones</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    
+                </Table>
+                
+                <Alert severity="error" sx={{margin:"0px auto",marginTop:"10px",marginBottom:"10px",width:"60%"}}>No hay trabajadores registrados</Alert>
                 </TableContainer>
             </Grid>
         );

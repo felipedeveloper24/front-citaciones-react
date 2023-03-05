@@ -5,7 +5,7 @@ import axios from "axios";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
-import { CircularProgress, Grid, Tooltip } from "@mui/material";
+import { Alert, CircularProgress, Grid, Tooltip } from "@mui/material";
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -18,7 +18,7 @@ import { Work } from "@mui/icons-material";
 const ShowTrabajadores = ()=>{
     const url = "https://intra-atrasos.cl/api/trabajadores";
 
-    const {status,data,error} = useQuery("getTrabajadores", async()=>{
+    const {status,data} = useQuery("getTrabajadores", async()=>{
         const response = await axios.get(url);
         console.log(response.data);
         return response.data;
@@ -42,7 +42,6 @@ const ShowTrabajadores = ()=>{
       }).then(async(result)  =>  {
         if (result.isConfirmed) {
           // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
-
           const response = await axios.delete(`${BASE_API}/${id}`);
           if(response.status===200){
          
@@ -71,14 +70,12 @@ const ShowTrabajadores = ()=>{
        
     }
 
-    if(status==="success"){
+    if(status==="success" && data.length > 0){
         return (
             <TableContainer component={Paper}>
             <Table stickyHeader sx={{ minWidth: 650,maxHeight:300 }} aria-label="simple table">
                 <TableHead>
                 <TableRow>
-                    
-                   
                     <TableCell>Rut</TableCell>
                     <TableCell >Nombre</TableCell>
                     <TableCell >Apellido</TableCell>
@@ -111,6 +108,25 @@ const ShowTrabajadores = ()=>{
                     }
                 </TableBody>
             </Table>
+            </TableContainer>
+        );
+    }
+    if(status==="success" && data.length == 0){
+        return (
+            <TableContainer component={Paper}>
+            <Table stickyHeader sx={{ minWidth: 650,maxHeight:300 }} aria-label="simple table">
+                <TableHead>
+                <TableRow>
+                    <TableCell>Rut</TableCell>
+                    <TableCell >Nombre</TableCell>
+                    <TableCell >Apellido</TableCell>
+                    <TableCell>Correo</TableCell>
+                    <TableCell>Teléfono</TableCell>
+                    <TableCell>Acciones</TableCell>
+                </TableRow>
+                </TableHead>
+            </Table>
+            <Alert severity="error"  sx={{textAlign:"center",margin:"0px auto",marginTop:"10px",marginBottom:"10px",width:"60%",textAlign:"center"}}>No hay trabajadores registrados</Alert>
             </TableContainer>
         );
     }
