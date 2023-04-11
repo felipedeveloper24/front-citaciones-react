@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const ClienteAxios = axios.create({
-    baseURL:"https://intra-atrasos.cl/api"
+    baseURL:"https://nombrada.intra.cl/api"
 })
 
 export default ClienteAxios;

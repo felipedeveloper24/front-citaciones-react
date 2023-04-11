@@ -15,13 +15,13 @@ const Header = ()=>{
       };
     return(
         <Grid container sx={{width:"100%",display:"flex",backgroundColor:"#1e293b",height:"80px",justifyContent:"center", alignItems:"center"}}>
-             <Grid sx={{width:"15%",display:"flex",justifyContent:"flex-start"}}>
+             <Grid sx={{width:"5%",display:"flex",justifyContent:"flex-start"}}>
                 <IconButton onClick={handleToggleMenu} sx={{marginLeft:"20px"}}>
                     <MenuIcon style={{color:"white"}} />
                 </IconButton>   
              </Grid>
              <Grid sx={{width:"70%",display:"flex",justifyContent:"center",alignItems:"center"}}>
-                <Typography className="titulo" sx={{fontSize:{md:"40px",xl:"35px"},color:"white"}}>Sistema de Nombradas</Typography>
+                <Typography className="titulo" sx={{fontSize:{md:"35px",xl:"30px"},color:"white"}}>Sistema de Nombradas</Typography>
                 <Anchor style={{color:"white",marginLeft:"10px"}}  />
             </Grid>
             <Drawer anchor="left" open={open}  width={300} onClose={handleToggleMenu}>

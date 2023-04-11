@@ -15,16 +15,15 @@ import Table from "@mui/material/Table";
 import Paper from '@mui/material/Paper';
 import Swal from "sweetalert2";
 import { Work } from "@mui/icons-material";
+import ClienteAxios from "../../helpers/clienteAxios";
 const ShowTrabajadores = ()=>{
-    const url = "https://intra-atrasos.cl/api/trabajadores";
-
     const {status,data} = useQuery("getTrabajadores", async()=>{
-        const response = await axios.get(url);
+        const response = await ClienteAxios.get("/trabajadores");
         console.log(response.data);
         return response.data;
     })
 
-    const BASE_API = "https://intra-atrasos.cl/api/trabajador";
+   
     const navigate = useNavigate();
     
     const deleteTrabajador =  (id)=>{
@@ -42,7 +41,8 @@ const ShowTrabajadores = ()=>{
       }).then(async(result)  =>  {
         if (result.isConfirmed) {
           // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
-          const response = await axios.delete(`${BASE_API}/${id}`);
+          //const response = await axios.delete(`${BASE_API}/${id}`);
+            const response = await ClienteAxios.delete(`/trabajador/${id}`);
           if(response.status===200){
          
                 Swal.fire({

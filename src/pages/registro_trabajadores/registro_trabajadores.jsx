@@ -8,8 +8,9 @@ import { useNavigate } from "react-router-dom";
 import {useForm} from "react-hook-form";
 import { Alert, Box, Button, Card, Grid, TextField, Typography } from "@mui/material";
 import { useRut } from "react-rut-formatter";
+import ClienteAxios from "../../helpers/clienteAxios";
 const Registro = ()=>{
-    const BASE_API = "https://intra-atrasos.cl/api";
+ 
     
     const { register, handleSubmit, formState: { errors } } = useForm({defaultValues:{
         rut:"",
@@ -32,6 +33,15 @@ const Registro = ()=>{
           }).then(async(result)  =>  {
             if (result.isConfirmed) {
               // La función de callback se ejecutará si el usuario hace clic en "Aceptar"
+              const response = await ClienteAxios.post(`/trabajador`,{
+                    rut: rut.formatted,
+                    nombre:data.nombre,
+                    apellido:data.apellido,
+                    correo:data.correo,
+                    telefono: data.telefono,
+                    id_estado: 2
+              })
+              /*
               const response = await axios.post(`${BASE_API}/trabajador`,{
                 rut: rut.formatted,
                 nombre:data.nombre,
@@ -39,7 +49,8 @@ const Registro = ()=>{
                 correo:data.correo,
                 telefono: data.telefono,
                 id_estado: 2
-            })
+              })
+              */
              console.log(response);
               if(response.status===201){
              

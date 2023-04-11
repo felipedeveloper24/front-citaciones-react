@@ -8,8 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Table from "@mui/material/Table";
 import Paper from '@mui/material/Paper';
+import ClienteAxios from "../../helpers/clienteAxios";
 const ShowCitaciones = ({id})=>{
-    const BASE_API="https://intra-atrasos.cl/api";
+    
     const [citaciones,setCitaciones] = useState([]);
     const [trabajador,setTrabajador] = useState({});
     const [loading,setLoading] = useState(false);
@@ -20,13 +21,14 @@ const ShowCitaciones = ({id})=>{
     },[]);  
     
     const getData = async ()=>{
-        const response = await axios.get(`${BASE_API}/mensajes/${id}`);    
+       
+        const response = await ClienteAxios.get(`/mensajes/${id}`);
         setCitaciones(response.data);
         console.log(response.data.length);
         setLoading(true);
     }
     const getDataTrabajador = async()=>{
-        const response  = await axios.get(`${BASE_API}/trabajador/${id}`);
+        const response = await ClienteAxios.get(`/trabajador/${id}`);
         setTrabajador(response.data);
     };
     const formato = (texto)=>{

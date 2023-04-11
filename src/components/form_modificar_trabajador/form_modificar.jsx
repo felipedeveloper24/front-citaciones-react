@@ -6,10 +6,10 @@ import { useForm,Controller } from "react-hook-form";
 import { useQuery } from "react-query";
 import Swal from "sweetalert2";
 import { useRut } from "react-rut-formatter";
+import ClienteAxios from "../../helpers/clienteAxios";
 
 const Form_modificar = ({id})=>{
     const { rut, updateRut, isValid } = useRut();    
-    const BASE_API = "https://intra-atrasos.cl/api";
     const {register,handleSubmit,control,reset} = useForm({defaultValues:{
         rut:"",
         nombre:"",
@@ -22,7 +22,8 @@ const Form_modificar = ({id})=>{
     const navigate = useNavigate();
     
     const {status,data} = useQuery("trabajdor", async()=>{
-        const response = await axios.get(`${BASE_API}/trabajador/${id}`);
+       // const response = await axios.get(`${BASE_API}/trabajador/${id}`);
+        const response = await ClienteAxios.get(`/trabajador/${id}`);
         return response.data;
     })
 
@@ -60,7 +61,7 @@ const Form_modificar = ({id})=>{
                 id_estado: 2,
               
             }
-            const response2 = await axios.put(`${BASE_API}/trabajador/${id}`,info);
+              const response2 = await ClienteAxios.put(`/trabajador/${id}`,info);
               if(response2.status===200){
              
                     Swal.fire({

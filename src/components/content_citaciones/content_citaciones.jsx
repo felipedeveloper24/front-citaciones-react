@@ -12,12 +12,13 @@ import TableRow from '@mui/material/TableRow';
 import Table from "@mui/material/Table";
 import Paper from '@mui/material/Paper';
 import { History, Work } from "@mui/icons-material";
+import ClienteAxios from "../../helpers/clienteAxios";
 
 const ContentCitaciones = ()=>{
-    const BASE_API = "https://intra-atrasos.cl/api";
 
     const {data,status} = useQuery("trabajadores",async()=>{
-        const response = await axios.get(`${BASE_API}/trabajadores`);
+        //const response = await axios.get(`${BASE_API}/trabajadores`);
+        const response = await ClienteAxios.get("/trabajadores");
         console.log(response.data);
         return response.data;
     })

@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Card, FormControl, Grid, InputLabel, MenuItem, Select, Typography, TextField, Button, Alert} from "@mui/material";
 import Swal from "sweetalert2";
+import ClienteAxios from "../../helpers/clienteAxios";
 
 const Content_citar = ({id})=>{
-    const BASE_API = "https://intra-atrasos.cl/api";
+    
     const [trabajador, setTrabajador] = useState({});
     const [turnos, setTurnos] = useState([]);
     const [id_turno, setId] = useState(null);
@@ -79,7 +80,8 @@ const Content_citar = ({id})=>{
             cancelButtonText:"Cancelar"
           }).then(async(result)  =>  {
             if (result.isConfirmed) {
-            const response = await axios.post(`${BASE_API}/mensaje`,data_general);
+            //const response = await axios.post(`${BASE_API}/mensaje`,data_general);
+             const response = await ClienteAxios.post(`/mensaje`,data_general);
               if(response.data[1]){
                     Swal.fire({
                         title:"Citado",
@@ -106,13 +108,14 @@ const Content_citar = ({id})=>{
     
     //Petición para obtener la data de un trabajador en específico
     const getDataTrabajador = async()=>{
-        const response = await axios.get(`${BASE_API}/trabajador/${id}`);
+        const response = await ClienteAxios.get(`/trabajador/${id}`);
         setTrabajador(response.data)
     };
     //Petición para obtener todos los turnos
 
     const getTurnos = async ()=>{
-        const response2 = await axios.get("https://intra-atrasos.cl/api/turnos");
+     
+        const response2 = await ClienteAxios.get("/turnos");
         setTurnos(response2.data)
         
     }
